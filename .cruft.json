@@ -1,0 +1,78 @@
+{
+  "template": "https://github.com/lkubb/salt-template-formula",
+  "commit": "50a694adefdf54f1ca465db433c033ca764942bc",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "_extensions": [
+        "local_extensions.YAMLDumper"
+      ],
+      "_jinja2_env_vars": {
+        "block_start_string": "{!",
+        "block_end_string": "!}",
+        "variable_start_string": "{=",
+        "variable_end_string": "=}",
+        "comment_start_string": "{@",
+        "comment_end_string": "@}"
+      },
+      "name": "Electrs Esplora API Backend",
+      "abbr": "electrs",
+      "abbr_pysafe": "electrs",
+      "pkg": "",
+      "needs_repo": "",
+      "config": "/etc/electrs/config.toml",
+      "service": "electrs",
+      "subcomponent": "",
+      "subcomponent_config": "",
+      "git_username": "lkubb",
+      "_lookup": {
+        "requirements": {
+          "base": [
+            "build-essential",
+            "clang",
+            "cmake",
+            "git"
+          ]
+        },
+        "paths": {
+          "bin": "/opt/electrs",
+          "build": "/opt/electrs/src",
+          "data": "/var/lib/electrs"
+        },
+        "service": {
+          "name": "electrs",
+          "unit": "/etc/systemd/system/{name}.service"
+        },
+        "pkg": {
+          "source": "https://github.com/Blockstream/electrs.git"
+        },
+        "rustup_init": {
+          "source": "https://sh.rustup.rs",
+          "source_hash": "a3cb081f88a6789d104518b30d4aa410009cd08c3822a1226991d6cf0442a0f8"
+        },
+        "user": "electrs",
+        "group": "electrs"
+      },
+      "_settings": {
+        "version": "latest",
+        "rust_setup": true,
+        "features": [
+          "rocksdb"
+        ],
+        "service": {
+          "requires_mount": [],
+          "wants": []
+        },
+        "config": {
+          "network": "mainnet",
+          "daemon_rpc_addr": "127.0.0.1:8332",
+          "daemon_dir": "/var/lib/bitcoind",
+          "json_rpc_import": false,
+          "address_search": true
+        }
+      },
+      "_template": "https://github.com/lkubb/salt-template-formula"
+    }
+  },
+  "directory": null
+}

@@ -1,0 +1,63 @@
+{#- -*- coding: utf-8 -*- #}
+{#- vim: ft=jinja #}
+
+{#-
+    Parse requirements. This is unnecessary atm, but can be used to
+    implement dynamic linking of rocksdb library.
+-#}
+
+{%- do mapdata.update({'_deps': mapdata.lookup.requirements.base}) -%}
+
+
+{#-
+    Set db-dir option as configured.
+-#}
+
+{%- do mapdata.config.update({'db_dir': mapdata.lookup.paths.data}) -%}
+
+
+{#-
+    Parse configuration options to keep the service file legible.
+    The forked version does not support any kind of configuration
+    apart from CLI params.
+-#}
+
+{%- set parsed_flags = [] -%}
+{%- set parsed_opts = {} -%}
+{%- set flags = [
+    'address_search', 'index_unspendables', 'jsonrpc_import', 'lightmode', 'timestamp'
+] -%}
+
+{%- set options = [
+    'blocks_dir', 'cookie', 'cors', 'daemon_dir', 'daemon_rpc_addr', 'db_dir', 'electrum_banner',
+    'electrum_rpc_addr', 'electrum_txs_limit', 'http_addr', 'http_socket_file', 'monitoring_addr',
+    'network', 'precache_scripts', 'utxos_limit'
+] -%}
+
+{%- if 'liquid' in mapdata.features -%}
+  {%- do options.append('parent_network') -%}
+{%- endif -%}
+
+{%- if 'electrum-discovery' in mapdata.features -%}
+  {%- do options.extend(['electrum_hosts', 'electrum_announce']) -%}
+{%- endif -%}
+
+{%- for flag in flags -%}
+  {%- if mapdata.config[flag] is defined and mapdata.config[flag] is sameas true -%}
+    {%- do parsed_flags.append(flag) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- for opt in options -%}
+  {%- if mapdata.config[opt] is defined -%}
+    {%- do parsed_opts.update({opt: mapdata.config[opt]}) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if 'network' not in parsed_opts or 'mainnet' == parsed_opts.network -%}
+  {%- if 'precache_scripts' not in parsed_opts -%}
+    {%- do parsed_opts.update({'precache_scripts': mapdata.lookup.paths.build | path_join('contrib', 'popular-scripts.txt')}) -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- do mapdata.update({'_flags': parsed_flags, '_opts': parsed_opts}) -%}

@@ -1,0 +1,85 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+# yamllint disable rule:comments-indentation
+---
+electrs:
+    # Specify a valid git rev or `latest`.
+  version: latest
+    # A functional Rust toolchain is necessary for building electrs.
+    # Set this to true to enable the inbuilt setup, to a string that refers
+    # to a custom state that will be included and required, or to false to skip.
+  rust_setup: true
+    # Features to activate when building electrs. This formula currently
+    # only supports static linking of rocksdb, but removing it from here
+    # and providing the proper library version separately would make it possible.
+  features:
+    - rocksdb
+    # Configuration for electrs. For options, set them to the desired value,
+    # for flags, set them to true to enable.
+    # The Blockstream fork does not support a configuration file currently,
+    # so this config is passed as CLI parameters.
+  config:
+    address_search: true
+      # If bitcoind runs on a different server, specify RPC credentials here.
+    cookie: user:pass
+      # If bitcoind runs on the same server, reading the .cookie file is possible
+      # and more secure.
+    daemon_dir: /var/lib/bitcoind
+    daemon_rpc_addr: 127.0.0.1:8332
+      # If electrs does not have access to the bitcoind data dir, force RPC loading.
+    json_rpc_import: true
+    network: mainnet
+    # Setup requirements for the electrs service unit.
+  service:
+    requires_mount: []
+    wants: []
+
+  lookup:
+    group: electrs
+    paths:
+      bin: /opt/electrs
+      build: /opt/electrs/src
+      data: /var/lib/electrs
+    pkg:
+      source: https://github.com/Blockstream/electrs.git
+    requirements:
+      base:
+        - build-essential
+        - clang
+        - cmake
+        - git
+    rustup_init:
+      source: https://sh.rustup.rs
+      source_hash: a3cb081f88a6789d104518b30d4aa410009cd08c3822a1226991d6cf0442a0f8
+    service:
+      name: electrs
+      unit: /etc/systemd/system/{name}.service
+    user: electrs
+
+  tofs:
+      # The files_switch key serves as a selector for alternative
+      # directories under the formula files directory. See TOFS pattern
+      # doc for more info.
+      # Note: Any value not evaluated by `config.get` will be used literally.
+      # This can be used to set custom paths, as many levels deep as required.
+    files_switch:
+      - any/path/can/be/used/here
+      - id
+      - roles
+      - osfinger
+      - os
+      - os_family
+
+      # All aspects of path/file resolution are customisable using the options below.
+      # This is unnecessary in most cases; there are sensible defaults.
+      # Default path: salt://< path_prefix >/< dirs.files >/< dirs.default >
+      # I.e.: salt://electrs/files/default
+      # path_prefix: template_alt
+      # dirs:
+      #   files: files_alt
+      #   default: default_alt
+      # The entries under `source_files` are prepended to the default source files
+      # given for the state
+    source_files:
+      electrs-config-file-file-managed:
+        - 'config_alt.toml.j2'
