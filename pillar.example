@@ -27,7 +27,7 @@ electrs:
     daemon_dir: /var/lib/bitcoind
     daemon_rpc_addr: 127.0.0.1:8332
       # If electrs does not have access to the bitcoind data dir, force RPC loading.
-    json_rpc_import: true
+    jsonrpc_import: true
     network: mainnet
     # Setup requirements for the electrs service unit.
   service:

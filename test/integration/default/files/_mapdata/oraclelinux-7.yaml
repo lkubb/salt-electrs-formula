@@ -33,7 +33,7 @@ values:
     address_search: true
     daemon_dir: /var/lib/bitcoind
     daemon_rpc_addr: 127.0.0.1:8332
-    json_rpc_import: false
+    jsonrpc_import: false
     network: mainnet
   features:
     - rocksdb

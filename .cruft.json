@@ -67,7 +67,7 @@
           "network": "mainnet",
           "daemon_rpc_addr": "127.0.0.1:8332",
           "daemon_dir": "/var/lib/bitcoind",
-          "json_rpc_import": false,
+          "jsonrpc_import": false,
           "address_search": true
         }
       },
