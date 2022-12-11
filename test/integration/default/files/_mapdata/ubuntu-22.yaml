@@ -1,0 +1,65 @@
+# yamllint disable rule:indentation rule:line-length
+# Ubuntu-22.04
+---
+values:
+  added_in_defaults: defaults_value
+  added_in_lookup: lookup_value
+  added_in_pillar: pillar_value
+  lookup:
+    arch: amd64
+    rootgroup: root
+    config: '/etc/electrs/config.toml'
+    group: electrs
+    paths:
+      bin: /opt/electrs
+      build: /opt/electrs/src
+      data: /var/lib/electrs
+    pkg:
+      source: https://github.com/Blockstream/electrs.git
+    requirements:
+      base:
+        - build-essential
+        - clang
+        - cmake
+        - git
+    rustup_init:
+      source: https://sh.rustup.rs
+      source_hash: a3cb081f88a6789d104518b30d4aa410009cd08c3822a1226991d6cf0442a0f8
+    service:
+      name: electrs
+      unit: /etc/systemd/system/{name}.service
+    user: electrs
+  config:
+    address_search: true
+    daemon_dir: /var/lib/bitcoind
+    daemon_rpc_addr: 127.0.0.1:8332
+    jsonrpc_import: false
+    network: mainnet
+  features:
+    - rocksdb
+  rust_setup: true
+  service:
+    requires_mount: []
+    wants: []
+  version: latest
+  map_jinja:
+    sources:
+    - Y:G@osarch
+    - Y:G@os_family
+    - Y:G@os
+    - Y:G@osfinger
+    - C@electrs
+    - Y:G@id
+  master: template-master
+  tofs:
+    files_switch:
+    - any/path/can/be/used/here
+    - id
+    - roles
+    - osfinger
+    - os
+    - os_family
+    source_files:
+      electrs-config-file-file-managed:
+      - example.tmpl.jinja
+  winner: pillar
