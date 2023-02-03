@@ -8,8 +8,6 @@ electrs:
     winner: lookup
     added_in_lookup: lookup_value
     config: '/etc/electrs/config.toml'
-    service:
-      name: electrs
     group: electrs
     paths:
       bin: /opt/electrs
