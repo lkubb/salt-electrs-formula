@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as electrs with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
-{%- set sls_require_rust = '' %}
+{%- set sls_require_rust = "" %}
 
 {%- if electrs.rust_setup %}
 include:
 {%-   if electrs.rust_setup is boolean %}
-{%-     set sls_require_rust = tplroot ~ '.rust.install' %}
+{%-     set sls_require_rust = tplroot ~ ".rust.install" %}
 {%-   else %}
 {%-     set sls_require_rust = electrs.rust_setup %}
 {%-   endif %}
@@ -65,7 +65,7 @@ Esplora-Electrs repository is up to date:
   git.latest:
     - name: {{ electrs.lookup.pkg.source }}
     - target: {{ electrs.lookup.paths.build }}
-    - rev: {{ 'HEAD' if 'latest' == electrs.version else electrs.version }}
+    - rev: {{ "HEAD" if "latest" == electrs.version else electrs.version }}
     - force_reset: true
     - user: {{ electrs.lookup.user }}
     - require:
@@ -83,8 +83,8 @@ Esplora-Electrs is compiled from source:
 
 Esplora-Electrs binary is installed:
   file.copy:
-    - name: {{ electrs.lookup.paths.bin | path_join('electrs') }}
-    - source: {{ electrs.lookup.paths.build | path_join('target', 'release', 'electrs') }}
+    - name: {{ electrs.lookup.paths.bin | path_join("electrs") }}
+    - source: {{ electrs.lookup.paths.build | path_join("target", "release", "electrs") }}
     - user: root
     - group: {{ electrs.lookup.group }}
     - onchanges:
@@ -94,18 +94,18 @@ Esplora-Electrs service unit is installed:
   file.managed:
     - name: {{ electrs.lookup.service.unit.format(name=electrs.lookup.service.name) }}
     - source: {{ files_switch(
-                    ['electrs.service.j2'],
-                    lookup='Esplora-Electrs service unit is installed',
+                    ["electrs.service", "electrs.service.j2"],
+                    lookup="Esplora-Electrs service unit is installed",
                   ) }}
     - template: jinja
     - mode: '0644'
     - user: root
     - group: {{ electrs.lookup.rootgroup }}
     - makedirs: true
-    - context: {{ {'electrs': electrs} | json }}
+    - context: {{ {"electrs": electrs} | json }}
     - require:
       - Esplora-Electrs binary is installed
-{%- if 'systemctl' | which %}
+{%- if "systemctl" | which %}
   # this executes systemctl daemon-reload
   module.run:
     - service.systemctl_reload: []

@@ -1,10 +1,13 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{#-
+    Stops the electrs service and disables it at boot time.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as electrs with context %}
 
-electrs-service-clean-service-dead:
+Electrs Esplora API Backend is dead:
   service.dead:
     - name: {{ electrs.lookup.service.name }}
     - enable: False
