@@ -12,7 +12,7 @@ include:
 Electrs is running:
   service.running:
     - name: {{ electrs.lookup.service.name }}
-    - enable: True
+    - enable: true
     - watch:
       - sls: {{ sls_package_install }}
       # - sls: {# sls_config_file #}

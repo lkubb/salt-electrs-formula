@@ -80,5 +80,5 @@ electrs:
       # The entries under `source_files` are prepended to the default source files
       # given for the state
     source_files:
-      electrs-config-file-file-managed:
+      Electrs configuration is managed:
         - 'config_alt.toml.j2'

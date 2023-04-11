@@ -10,4 +10,4 @@
 Electrs Esplora API Backend is dead:
   service.dead:
     - name: {{ electrs.lookup.service.name }}
-    - enable: False
+    - enable: false
