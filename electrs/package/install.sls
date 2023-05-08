@@ -85,6 +85,7 @@ Esplora-Electrs binary is installed:
   file.copy:
     - name: {{ electrs.lookup.paths.bin | path_join("electrs") }}
     - source: {{ electrs.lookup.paths.build | path_join("target", "release", "electrs") }}
+    - force: true
     - user: root
     - group: {{ electrs.lookup.group }}
     - onchanges:
