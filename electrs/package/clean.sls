@@ -2,7 +2,7 @@
 
 {#-
     Removes the electrs package.
-    Has a depency on `electrs.rust.clean`_ if
+    Has a dependency on `electrs.rust.clean`_ if
     ``rust_setup`` is ``true``.
 #}
 

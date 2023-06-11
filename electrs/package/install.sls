@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
 {%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as electrs with context %}
-{%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
+{%- from tplroot ~ "/libtofsstack.jinja" import files_switch with context %}
 {%- set sls_require_rust = "" %}
 
 {%- if electrs.rust_setup %}
@@ -96,8 +95,10 @@ Esplora-Electrs service unit is installed:
     - name: {{ electrs.lookup.service.unit.format(name=electrs.lookup.service.name) }}
     - source: {{ files_switch(
                     ["electrs.service", "electrs.service.j2"],
+                    config=electrs,
                     lookup="Esplora-Electrs service unit is installed",
-                  ) }}
+                  )
+              }}
     - template: jinja
     - mode: '0644'
     - user: root

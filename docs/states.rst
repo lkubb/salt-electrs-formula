@@ -26,17 +26,17 @@ By default, includes `electrs.rust`_, but this can be
 configured in ``rust_setup``.
 
 
+``electrs.service``
+^^^^^^^^^^^^^^^^^^^
+Starts the electrs service and enables it at boot time.
+[Has a dependency on `electrs.config`_.]
+
+
 ``electrs.config``
 ^^^^^^^^^^^^^^^^^^
 Manages the electrs service configuration.
 This does not work for the Blockstream fork of ``electrs``.
 Has a dependency on `electrs.package`_.
-
-
-``electrs.service``
-^^^^^^^^^^^^^^^^^^^
-Starts the electrs service and enables it at boot time.
-[Has a dependency on `electrs.config`_.]
 
 
 ``electrs.rust``
@@ -61,8 +61,13 @@ uninstalls the package.
 ``electrs.package.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 Removes the electrs package.
-Has a depency on `electrs.rust.clean`_ if
+Has a dependency on `electrs.rust.clean`_ if
 ``rust_setup`` is ``true``.
+
+
+``electrs.service.clean``
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Stops the electrs service and disables it at boot time.
 
 
 ``electrs.config.clean``
@@ -71,11 +76,6 @@ Removes the configuration of the electrs service and has a
 dependency on `electrs.service.clean`_.
 
 Does not work for the Blockstream fork of ``electrs``.
-
-
-``electrs.service.clean``
-^^^^^^^^^^^^^^^^^^^^^^^^^
-Stops the electrs service and disables it at boot time.
 
 
 ``electrs.rust.clean``
