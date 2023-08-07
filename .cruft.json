@@ -51,7 +51,8 @@
           "source_hash": "a3cb081f88a6789d104518b30d4aa410009cd08c3822a1226991d6cf0442a0f8"
         },
         "user": "electrs",
-        "group": "electrs"
+        "group": "electrs",
+        "user_extra_groups": []
       },
       "settings": {
         "version": "latest",

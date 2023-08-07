@@ -27,6 +27,7 @@ electrs:
       name: electrs
       unit: /etc/systemd/system/{name}.service
     user: electrs
+    user_extra_groups: []
   config:
     address_search: true
     daemon_dir: /var/lib/bitcoind

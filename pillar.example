@@ -54,6 +54,10 @@ electrs:
       name: electrs
       unit: /etc/systemd/system/{name}.service
     user: electrs
+      # Ensure the `electrs` user is part of supplemental groups.
+      # If you run bitcoind on the same system, it might be useful to
+      # add it to the `bitcoin` group in order to be able to read the rpc cookie file.
+    user_extra_groups: []
 
   tofs:
       # The files_switch key serves as a selector for alternative

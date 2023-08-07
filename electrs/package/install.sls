@@ -22,6 +22,7 @@ Esplora-Electrs user/group are present:
     - createhome: true
     - system: true
     - usergroup: {{ electrs.lookup.group == electrs.lookup.user }}
+    - groups: {{ electrs.lookup.user_extra_groups | json }}
 {%- if electrs.lookup.group != electrs.lookup.user %}
     - gid: {{ electrs.lookup.group }}
     - require:
