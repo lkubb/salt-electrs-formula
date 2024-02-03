@@ -22,7 +22,7 @@ electrs:
         - git
     rustup_init:
       source: https://sh.rustup.rs
-      source_hash: a3cb081f88a6789d104518b30d4aa410009cd08c3822a1226991d6cf0442a0f8
+      source_hash: be3535b3033ff5e0ecc4d589a35d3656f681332f860c5fd6684859970165ddcc
     service:
       name: electrs
       unit: /etc/systemd/system/{name}.service
