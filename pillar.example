@@ -8,11 +8,8 @@ electrs:
     # Set this to true to enable the inbuilt setup, to a string that refers
     # to a custom state that will be included and required, or to false to skip.
   rust_setup: true
-    # Features to activate when building electrs. This formula currently
-    # only supports static linking of rocksdb, but removing it from here
-    # and providing the proper library version separately would make it possible.
-  features:
-    - rocksdb
+    # Features to activate when building electrs.
+  features: []
     # Configuration for electrs. For options, set them to the desired value,
     # for flags, set them to true to enable.
     # The Blockstream fork does not support a configuration file currently,

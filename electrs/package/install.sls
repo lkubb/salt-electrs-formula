@@ -55,7 +55,7 @@ Esplora-Electrs paths are setup:
 
 Requirements for compiling Esplora-Electrs are installed:
   pkg.installed:
-    - pkgs: {{ electrs._deps }}
+    - pkgs: {{ electrs.lookup.requirements.base }}
 {%- if sls_require_rust %}
     - require:
       - sls: {{ sls_require_rust }}
@@ -73,7 +73,7 @@ Esplora-Electrs repository is up to date:
 
 Esplora-Electrs is compiled from source:
   cmd.run:
-    - name: cargo build --locked --release --no-default-features --features {{ electrs.features | join(',') }}
+    - name: cargo build --locked --release --no-default-features {%- if electrs.features %}--features {{ electrs.features | join(',') }}{%- endif %}
     - cwd: {{ electrs.lookup.paths.build }}
     - runas: {{ electrs.lookup.user }}
     - require:

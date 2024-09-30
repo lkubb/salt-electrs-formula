@@ -1,13 +1,4 @@
-{#- -*- coding: utf-8 -*- #}
 {#- vim: ft=jinja #}
-
-{#-
-    Parse requirements. This is unnecessary atm, but can be used to
-    implement dynamic linking of rocksdb library.
--#}
-
-{%- do mapdata.update({'_deps': mapdata.lookup.requirements.base}) -%}
-
 
 {#-
     Set db-dir option as configured.

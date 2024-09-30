@@ -34,8 +34,7 @@ electrs:
     daemon_rpc_addr: 127.0.0.1:8332
     jsonrpc_import: false
     network: mainnet
-  features:
-    - rocksdb
+  features: []
   rust_setup: true
   service:
     requires_mount: []

@@ -57,9 +57,7 @@
       "settings": {
         "version": "latest",
         "rust_setup": true,
-        "features": [
-          "rocksdb"
-        ],
+        "features": [],
         "service": {
           "requires_mount": [],
           "wants": []
